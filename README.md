@@ -19,6 +19,7 @@
 | [🔄born2beroot](https://github.com/ftonita/born2beroot)| System Administration | Debian, bash, ssh, UFW, crone, linux |
 | [Philosophers](https://github.com/ftonita/Philosophers) | Philosophers for multithreading | mutex, pthread create/join/detach, semaphore, fork |
 | [🔄 CPP Modules](https://github.com/ftonita/CPP) | CPP modules to learn OOP | Classes, objects, methods ... |
-| [PassBot](https://github.com/ftonita/PassBot) | FullStack, DevOps, Presentation | Python (telegram-bot, flask, asyncio, etc.), Docker (docker-compose, containers) SQL, HTML, CSS |
+| [PassBot](https://github.com/ftonita/PassBot) | Telegram-bot, Web-interface, containers | Python (telegram-bot, Flask, asyncio, etc.), Docker (docker-compose, containers) SQL, HTML, CSS |
+[Morphological analysis](https://github.com/ftonita/Morphological_analysis) | Morphological analysis of input data | Python (tkinter), SQL, Alghorhytms |
 | | |
 | | |
