@@ -1,7 +1,7 @@
 # 👋 Hi, I’m Iskander Safin a.k.a @ftonita
 - 🌱 Student of 21 School / 42 School
-- 👨🏻‍💻 C/CPP, Python, Java, SQL
-- 🙌🏻 HTML, CSS
+- 👨🏻‍💻 C/CPP, Python, Java, Go
+- 🙌🏻 SQL, HTML, CSS, Docker
 ### 📱Contact:
 | 📫 farmtonita@gmail.com | ✈️telegram: @ftonita |
 | --- | --- |
