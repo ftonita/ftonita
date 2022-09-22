@@ -3,7 +3,7 @@
 - 👨🏻‍💻 C/CPP, Python, Java, Go
 - 🙌🏻 SQL, HTML, CSS, Docker
 ### 📱Contact:
-| 📫 farmtonita@gmail.com | ✈️telegram: @ftonita |
+| 📫 farmtonita@gmail.com | ✈️ telegram: @ftonita |
 | --- | --- |
 
 ## Project List:
