@@ -16,7 +16,7 @@
 | [minitalk](https://github.com/ftonita/minitalk) | Server and Client  | signal , sigemptyset, sigaddset, sigaction, kill, getpid, malloc, free, pause, sleep, usleep, exit |
 | [Fdf](https://github.com/ftonita/Fdf)| Graphics | MiniLibX library, libft, math |
 | [🔄 minishell](https://github.com/yuran653/minishell)|  "Bash" terminal alternative | fork, execve, dup2, pipe, termacps, opendir, kill, wait ... |
-| [born2beroot](https://github.com/ftonita/born2beroot)| System Administration | Debian, bash, ssh, UFW, crone, linux |
+| [🔄born2beroot](https://github.com/ftonita/born2beroot)| System Administration | Debian, bash, ssh, UFW, crone, linux |
 | [Philosophers](https://github.com/ftonita/Philosophers) | Philosophers for multithreading | mutex, pthread create/join/detach, semaphore, fork |
 | [🔄 CPP Modules](https://github.com/ftonita/CPP) | CPP modules to learn OOP | Classes, objects, methods ... |
 | [PassBot](https://github.com/ftonita/PassBot) | FullStack, DevOps, Presentation | Python (telegram-bot, flask, asyncio, etc.), Docker (docker-compose, containers) SQL, HTML, CSS |
