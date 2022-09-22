@@ -19,5 +19,6 @@
 | [born2beroot](https://github.com/ftonita/born2beroot)| System Administration | Debian, bash, ssh, UFW, crone, linux |
 | [ft_Philosophers](https://github.com/ftonita/Philosophers) | Philosophers for multithreading | mutex, pthread create/join/detach, semaphore, fork |
 | [🔄 CPP Modules](https://github.com/ftonita/CPP) | CPP modules to learn OOP | Classes, objects, methods ... |
+| [PassBot](https://github.com/ftonita/PassBot) | FullStack, DevOps, Presentation | Python (telegram-bot, flask, asyncio, etc.), SQL, HTML, CSS |
 | | |
 | | |
