@@ -1,5 +1,5 @@
 # 👋 Hi, I’m Iskander Safin a.k.a @ftonita
-- 🌱 Student of 21 School / Ecole42 (21-school.ru | 42.fr)
+- 🌱 Student of [21 School](https://21-school.ru) / [Ecole42](https://42.fr)
 - 🎓 Student of KPFU, Information security of automated systems
 - 👨🏻‍💻 C/CPP, Python, Java, Go
 - 🙌🏻 SQL, HTML, CSS, Docker
