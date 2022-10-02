@@ -1,5 +1,6 @@
 # 👋 Hi, I’m Iskander Safin a.k.a @ftonita
-- 🌱 Student of 21 School / 42 School
+- 🌱 Student of 21 School / Ecole42 (21-school.ru | 42.fr)
+- 🎓 Student of KPFU, Information security of automated systems
 - 👨🏻‍💻 C/CPP, Python, Java, Go
 - 🙌🏻 SQL, HTML, CSS, Docker
 ### 📱Contact:
@@ -21,5 +22,4 @@
 | [🔄 CPP Modules](https://github.com/ftonita/CPP) | CPP modules to learn OOP | Classes, objects, methods ... |
 | [PassBot](https://github.com/ftonita/PassBot) | Telegram-bot, Web-interface, containers | Python (telegram-bot, Flask, asyncio, etc.), Docker (docker-compose, containers) SQL, HTML, CSS |
 [Morphological analysis](https://github.com/ftonita/Morphological_analysis) | Morphological analysis of input data | Python (tkinter), SQL, Alghorhytms |
-| | |
 | | |
