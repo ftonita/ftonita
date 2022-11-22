@@ -7,6 +7,11 @@
 | 📫 farmtonita@gmail.com | ✈️ telegram: @ftonita |
 | --- | --- |
 
+____
+|[![ftonita Github stats](https://github-readme-stats.vercel.app/api?username=ftonita&count_private=true&show_icons=true&hide=contribs,issues&hide_border=true)](https://github.com/ftonita?tab=repositories) | [![Most Used Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=ftonita&layout=compact&hide_border=true)](https://github.com/ftonita?tab=repositories) |
+|---|---|
+____
+
 ## Project List:
 | Name | Description | Tools |
 | --- | --- | --- |
