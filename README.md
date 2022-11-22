@@ -16,7 +16,7 @@ ____
 | Name | Description | Tools |
 | --- | --- | --- |
 | [libft](https://github.com/ftonita/libft)| Recreation of Standart C Library  | 	Сlear C, malloc, write, Makefile |
-| [Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails-Piscine) | Web-development on Rails framework | Ruby, Rails, HTML, CSS, Bash |
+| [Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails_Piscine) | Web-development on Rails framework | Ruby, Rails, HTML, CSS, Bash |
 | [NetPractice](https://github.com/ftonita/NetPractice) | Network routing | Networks, IPs, masks |
 | [get_next_line](https://github.com/ftonita/get_next_line) | Get one line from file (\n) | read, buffer, static variable |
 | [ft_printf](https://github.com/ftonita/ft_printf) | Original C function printf | va_arg, va_list, va_end |
