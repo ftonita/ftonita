@@ -29,7 +29,8 @@ ____
 | Name | Description | Tools |
 | --- | --- | --- |
 | [PassBot](https://github.com/ftonita/PassBot) | Telegram-bot, Web-interface, containers | Python (telegram-bot, Flask, asyncio, etc.), Docker (docker-compose, containers) SQL, HTML, CSS |
-[Morphological analysis](https://github.com/ftonita/Morphological_analysis) | Morphological analysis of input data | Python (tkinter), SQL, Alghorhytms |
+[Morphological Analysis](https://github.com/ftonita/Morphological_analysis) | Morphological analysis of input data | Python (tkinter), SQL, Alghorhytms |
+| [Transactions Parsing](https://github.com/ftonita/Transactions_Parsing) | JSON parsing | Python, maps, JSON |
 
 
 ### 🌟 Other Projects
