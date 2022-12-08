@@ -20,19 +20,16 @@ ____
 ### 🌐 Web Development Projects
 | Name | Description | Tools |
 | --- | --- | --- |
-| [🔄 Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails_Piscine) | Web-development on Rails framework | Ruby, Rails, HTML, CSS, Bash |
-| [🔄 Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails_Piscine) | Web-development on Rails framework | Ruby, Rails, HTML, CSS, Bash |
-| [🔄 Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails_Piscine) | Web-development on Rails framework | Ruby, Rails, HTML, CSS, Bash |
-
-
+| [MicroShop](https://github.com/ftonita/MicroShop_on_Django) | Micro-shop system on Django | Python, Django, DRF, ORM, JS, Stripe |
+| [Simple Blog](https://github.com/ftonita/Simple_Blog_on_Django) | Simple blog on Django | Python, Django, DRF, ORM, Sessions, Accounts |
+| [Inception](https://github.com/ftonita/Inception) | WordPress deployment on VM by only Make & Docker | Docker-compose, Makefile, Shell Scripting, WordPress, VM |
+| [🔄 Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails_Piscine) | Web-development studying on Rails framework | Ruby, Rails, HTML, CSS, Bash |
 ### 🐍 Python Projects
 | Name | Description | Tools |
 | --- | --- | --- |
 | [PassBot](https://github.com/ftonita/PassBot) | Telegram-bot, Web-interface, containers | Python (telegram-bot, Flask, asyncio, etc.), Docker (docker-compose, containers) SQL, HTML, CSS |
 [Morphological Analysis](https://github.com/ftonita/Morphological_analysis) | Morphological analysis of input data | Python (tkinter), SQL, Alghorhytms |
 | [Transactions Parsing](https://github.com/ftonita/Transactions_Parsing) | JSON parsing | Python, maps, JSON |
-
-
 ### 🌟 Other Projects
 | Name | Description | Tools |
 | --- | --- | --- |
