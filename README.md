@@ -1,8 +1,12 @@
-# 👋 Hi, I’m Iskander Safin a.k.a @ftonita
-- 🌱 Student of [21 School](https://21-school.ru) / [Ecole42](https://42.fr)
-- 🎓 Student of KPFU, Information security of automated systems
-- 👨🏻‍💻 C/CPP, Python, Java, Go
-- 🙌🏻 SQL, HTML, CSS, Docker
+# 👋 Hi, I’m Iskander Safin a.k.a @ftonita - Web Developer
+## Skills:
+  - 👨🏻‍💻 Python (Django, Django REST Framework, telegram-bots, etc.), C/C++, SQL
+  - 🙌🏻 Docker (containers, -compose)
+
+## About
+  - 🌱 Student of [21 School](https://21-school.ru) / [Ecole42](https://42.fr)
+  - 🎓 Student of KPFU, Information security of automated systems
+
 ### 📱Contact:
 | 📫 farmtonita@gmail.com | ✈️ telegram: @ftonita |
 | --- | --- |
@@ -13,10 +17,25 @@ ____
 ____
 
 ## Project List:
+### 🌐 Web Development Projects
+| Name | Description | Tools |
+| --- | --- | --- |
+| [🔄 Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails_Piscine) | Web-development on Rails framework | Ruby, Rails, HTML, CSS, Bash |
+| [🔄 Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails_Piscine) | Web-development on Rails framework | Ruby, Rails, HTML, CSS, Bash |
+| [🔄 Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails_Piscine) | Web-development on Rails framework | Ruby, Rails, HTML, CSS, Bash |
+
+
+### 🐍 Python Projects
+| Name | Description | Tools |
+| --- | --- | --- |
+| [PassBot](https://github.com/ftonita/PassBot) | Telegram-bot, Web-interface, containers | Python (telegram-bot, Flask, asyncio, etc.), Docker (docker-compose, containers) SQL, HTML, CSS |
+[Morphological analysis](https://github.com/ftonita/Morphological_analysis) | Morphological analysis of input data | Python (tkinter), SQL, Alghorhytms |
+
+
+### 🌟 Other Projects
 | Name | Description | Tools |
 | --- | --- | --- |
 | [libft](https://github.com/ftonita/libft)| Recreation of Standart C Library  | 	Сlear C, malloc, write, Makefile |
-| [🔄 Ruby on Rails Piscine](https://github.com/ftonita/Ruby-on-Rails_Piscine) | Web-development on Rails framework | Ruby, Rails, HTML, CSS, Bash |
 | [NetPractice](https://github.com/ftonita/NetPractice) | Network routing | Networks, IPs, masks |
 | [get_next_line](https://github.com/ftonita/get_next_line) | Get one line from file (\n) | read, buffer, static variable |
 | [ft_printf](https://github.com/ftonita/ft_printf) | Original C function printf | va_arg, va_list, va_end |
@@ -26,6 +45,3 @@ ____
 | [🔄 born2beroot](https://github.com/ftonita/born2beroot)| System Administration | Debian, bash, ssh, UFW, crone, linux |
 | [Philosophers](https://github.com/ftonita/Philosophers) | Philosophers for multithreading | mutex, pthread create/join/detach, semaphore, fork |
 | [CPP Modules](https://github.com/ftonita/CPP) | CPP modules to learn OOP | Classes, Objects, Member functions, Templates, STL |
-| [PassBot](https://github.com/ftonita/PassBot) | Telegram-bot, Web-interface, containers | Python (telegram-bot, Flask, asyncio, etc.), Docker (docker-compose, containers) SQL, HTML, CSS |
-[Morphological analysis](https://github.com/ftonita/Morphological_analysis) | Morphological analysis of input data | Python (tkinter), SQL, Alghorhytms |
-| | |
