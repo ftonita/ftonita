@@ -12,7 +12,7 @@
 | --- | --- |
 
 ____
-|[![ftonita Github stats](https://github-readme-stats.vercel.app/api?username=ftonita&count_private=true&show_icons=true&hide=contribs,issues&hide_border=true)](https://github.com/ftonita?tab=repositories) | [![Most Used Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=ftonita&layout=compact&hide_border=true&hide=vue,javascript,css,html,roff)](https://github.com/ftonita?tab=repositories) |
+|[![ftonita Github stats](https://github-readme-stats.vercel.app/api?username=ftonita&count_private=true&show_icons=true&hide=contribs,issues&hide_border=true)](https://github.com/ftonita?tab=repositories) | [![Most Used Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=ftonita&layout=compact&hide_border=true&hide=vue,javascript,css,html,roff,scss)](https://github.com/ftonita?tab=repositories) |
 |---|---|
 ____
 
