@@ -8,7 +8,7 @@
   - 🎓 Student of KPFU, Information security of automated systems
 
 ### 📱Contact:
-| 📫 farmtonita@gmail.com | ✈️ telegram: @ftonita |
+| 📫 iskander10136@gmail.com | ✈️ telegram: @ftonita |
 | --- | --- |
 
 ____
