@@ -1,6 +1,6 @@
 # 👋 Hi, I’m Iskander Safin a.k.a @ftonita - Web Developer
 ## Skills:
-  - 🙌🏻 Ansible, Jenkins, Docker (containers, -compose), Nginx, Linux
+  - 🙌🏻 Ansible, Jenkins, Docker (containers, -compose), Nginx, Linux, K8s, Openshift
   - 👨🏻‍💻 Python (Django, Django REST Framework, telegram-bots, etc.), C/C++, SQL
 
 ## About
