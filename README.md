@@ -4,6 +4,7 @@
   - 👨🏻‍💻 Python (Django, Django REST Framework, telegram-bots, etc.), C/C++, SQL
 
 ## About
+  - ✅ DevOps Engineer in Sber (CI/CD, OpenShift, Linux)
   - 🌱 Student of [21 School](https://21-school.ru) / [Ecole42](https://42.fr)
   - 🎓 Student of KPFU, Information security of automated systems
 
