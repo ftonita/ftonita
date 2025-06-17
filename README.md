@@ -1,6 +1,6 @@
 # DevOps engineer, Web developer
 ## Skills:
-  - 🙌🏻 Ansible, Jenkins, Docker (containers, -compose), Nginx, Linux, K8s, Openshift
+  - 🙌🏻 Ansible, Jenkins, Nginx, Linux (Red/Deb), K8s, Openshift, Docker, Gitlab, Zabbix
   - 👨🏻‍💻 Python (Django, Django REST Framework, telegram-bots, etc.), C/C++, SQL
 
 ## About
