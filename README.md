@@ -1,12 +1,11 @@
 # DevOps engineer, Web developer
 ## Skills:
-  - 🙌🏻 Ansible, Jenkins, Nginx, Linux (Red/Deb), K8s, Openshift, Docker, Gitlab, Zabbix
+  - 🙌🏻 Ansible, Jenkins, Nginx, Linux (Red/Deb), K8s, Openshift, Docker, Gitlab, Openstack, Terraform, Zabbix
   - 👨🏻‍💻 Python (Django, Django REST Framework, telegram-bots, etc.), C/C++, SQL
 
 ## About
-  - ✅ DevOps Engineer in Smart Horizon (CI/CD, Ansible, Linux, Monitoring, Networks, Docker)
-  - 🌱 Student of [21 School](https://21-school.ru) / [Ecole42](https://42.fr)
-  - 🎓 Student of KPFU, Information security of automated systems
+  - ✅ DevOps Engineer in Smart Horizon (CI/CD, Ansible, Linux, Monitoring, Networks, Docker, Cloud)
+  - 🎓 Alumni of [21 School](https://21-school.ru) / [Ecole42](https://42.fr)
 
 ### 📱Contact:
 | 📫 farmtonita@gmail.com | ✈️ telegram: @ftonita |
