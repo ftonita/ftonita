@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+global_defs {
+    enable_script_security
+    script_user root
+}
+
+vrrp_script chk_patroni_primary {
+    script "/usr/local/bin/check_patroni_primary.sh"
+    interval 2
+    fall 2
+    rise 2
+}
+
+vrrp_instance PG_VIP {
+    state BACKUP
+    interface {{ vip_interface }}
+    virtual_router_id {{ keepalived_router_id }}
+    priority {{ keepalived_priority_base - groups['postgres'].index(inventory_hostname) }}
+    advert_int 1
+    virtual_ipaddress {
+        {{ pg_vip }}/24
+    }
+    track_script {
+        chk_patroni_primary
+    }
+}

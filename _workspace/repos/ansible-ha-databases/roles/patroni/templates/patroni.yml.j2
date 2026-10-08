@@ -1,0 +1,46 @@
+# {{ ansible_managed }}
+scope: {{ patroni_cluster_name }}
+name: {{ inventory_hostname }}
+
+restapi:
+  listen: 0.0.0.0:8008
+  connect_address: {{ ansible_host }}:8008
+
+etcd3:
+  hosts: {% for h in groups['postgres'] %}{{ hostvars[h].ansible_host }}:2379{{ ',' if not loop.last }}{% endfor %}
+
+
+bootstrap:
+  dcs:
+    ttl: {{ patroni_ttl }}
+    loop_wait: {{ patroni_loop_wait }}
+    retry_timeout: {{ patroni_retry_timeout }}
+    maximum_lag_on_failover: {{ patroni_max_lag_on_failover }}
+    postgresql:
+      use_pg_rewind: true
+      parameters:
+        wal_level: replica
+        hot_standby: "on"
+        max_wal_senders: 10
+        max_replication_slots: 10
+        wal_log_hints: "on"
+  initdb:
+    - encoding: UTF8
+    - data-checksums
+
+postgresql:
+  listen: 0.0.0.0:5432
+  connect_address: {{ ansible_host }}:5432
+  data_dir: {{ patroni_pg_data_dir }}
+  bin_dir: {{ patroni_pg_bin_dir }}
+  authentication:
+    superuser:
+      username: postgres
+      password: "{{ patroni_superuser_password }}"
+    replication:
+      username: replicator
+      password: "{{ patroni_replication_password }}"
+
+tags:
+  nofailover: false
+  noloadbalance: false

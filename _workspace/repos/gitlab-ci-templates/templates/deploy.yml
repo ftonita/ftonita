@@ -1,0 +1,25 @@
+# Deploy via Ansible (VM targets) or by bumping the image tag in a GitOps repo (Kubernetes + ArgoCD).
+.deploy-ansible:
+  stage: deploy
+  image: willhallonline/ansible:2.16-alpine-3.19
+  variables:
+    ANSIBLE_HOST_KEY_CHECKING: "false"
+  before_script:
+    - eval "$(ssh-agent -s)"
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  script:
+    - ansible-playbook -i "inventories/$DEPLOY_ENV" deploy.yml -e "image_tag=$CI_COMMIT_SHORT_SHA"
+  environment:
+    name: $DEPLOY_ENV
+
+.deploy-gitops:
+  stage: deploy
+  image: alpine/git:2.45.2
+  script:
+    - git clone "https://oauth2:${GITOPS_TOKEN}@${GITOPS_REPO#https://}" gitops
+    - cd gitops
+    - sed -i "s|^\(\s*tag:\).*|\1 \"$CI_COMMIT_SHORT_SHA\"|" "apps/$CI_PROJECT_NAME/$DEPLOY_ENV/values.yaml"
+    - git -c user.name=ci-bot -c user.email=ci-bot@example.com commit -am "deploy $CI_PROJECT_NAME $CI_COMMIT_SHORT_SHA to $DEPLOY_ENV"
+    - git push origin HEAD
+  environment:
+    name: $DEPLOY_ENV

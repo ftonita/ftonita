@@ -1,0 +1,43 @@
+# Example consumer: a service gets build + test + scan + deploy in ~20 lines.
+include:
+  - project: platform/gitlab-ci-templates
+    ref: v1.0.0            # pin a tag, never a branch
+    file:
+      - templates/build.yml
+      - templates/test.yml
+      - templates/quality.yml
+      - templates/deploy.yml
+
+stages: [build, test, deploy]
+
+build:
+  extends: .build-image
+
+unit-tests:
+  extends: .test
+  variables:
+    TEST_IMAGE: python:3.12-slim
+    TEST_SCRIPT: pip install -r requirements.txt && pytest --junitxml=report.xml
+
+sonarqube:
+  extends: .sonarqube
+
+trivy:
+  extends: .trivy-image-scan
+  needs: [build]
+
+secrets:
+  extends: .secret-scan
+
+deploy-stage:
+  extends: .deploy-gitops
+  variables: { DEPLOY_ENV: stage }
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+deploy-prod:
+  extends: .deploy-gitops
+  variables: { DEPLOY_ENV: prod }
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

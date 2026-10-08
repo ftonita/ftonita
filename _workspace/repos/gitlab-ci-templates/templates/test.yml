@@ -1,0 +1,17 @@
+# Language-agnostic test job: override TEST_IMAGE and TEST_SCRIPT in the consumer.
+.test:
+  stage: test
+  image: $TEST_IMAGE
+  script:
+    - eval "$TEST_SCRIPT"
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+    expire_in: 1 week
+
+.lint-yaml:
+  stage: test
+  image: registry.gitlab.com/pipeline-components/yamllint:latest
+  script:
+    - yamllint -s .

@@ -1,0 +1,22 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with: { terraform_version: 1.9.8 }
+      - run: terraform fmt -check -recursive
+      - run: terraform init -backend=false && terraform validate
+      - run: shellcheck scripts/*.sh
+  e2e:
+    # Starts Vault in dev mode, applies the policies and proves team isolation.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with: { terraform_version: 1.9.8 }
+      - run: make up && sleep 5
+      - run: sed -i 's#/vault/logs/audit.log#stdout#' main.tf && make apply
+      - run: make test

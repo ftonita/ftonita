@@ -1,0 +1,33 @@
+---
+- name: Install keepalived and curl
+  ansible.builtin.apt:
+    name: [keepalived, curl]
+    state: present
+    cache_valid_time: 3600
+
+- name: Install the Patroni primary check script
+  ansible.builtin.copy:
+    dest: /usr/local/bin/check_patroni_primary.sh
+    mode: "0755"
+    owner: root
+    group: root
+    content: |
+      #!/bin/sh
+      # Exit 0 only on the current Patroni primary: the VIP follows the leader.
+      curl -fs -o /dev/null http://127.0.0.1:8008/primary
+  notify: Restart keepalived
+
+- name: Render keepalived configuration
+  ansible.builtin.template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    mode: "0644"
+    owner: root
+    group: root
+  notify: Restart keepalived
+
+- name: Enable and start keepalived
+  ansible.builtin.service:
+    name: keepalived
+    state: started
+    enabled: true

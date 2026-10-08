@@ -1,0 +1,39 @@
+---
+- name: Install Redis and Sentinel
+  ansible.builtin.apt:
+    name: [redis-server, redis-sentinel]
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Render redis.conf
+  ansible.builtin.template:
+    src: redis.conf.j2
+    dest: /etc/redis/redis.conf
+    mode: "0640"
+    owner: redis
+    group: redis
+  notify: Restart redis
+  no_log: true
+
+- name: Render sentinel.conf
+  ansible.builtin.template:
+    src: sentinel.conf.j2
+    dest: /etc/redis/sentinel.conf
+    mode: "0640"
+    owner: redis
+    group: redis
+  notify: Restart sentinel
+  no_log: true
+
+- name: Enable and start Redis
+  ansible.builtin.service:
+    name: redis-server
+    state: started
+    enabled: true
+
+- name: Enable and start Sentinel
+  ansible.builtin.service:
+    name: redis-sentinel
+    state: started
+    enabled: true

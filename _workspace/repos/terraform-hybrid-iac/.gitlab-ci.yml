@@ -1,0 +1,56 @@
+# Every change goes through a merge request: validate -> plan (MR) -> manual apply (default branch).
+image:
+  name: hashicorp/terraform:1.9
+  entrypoint: [""]
+
+variables:
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "0"
+
+stages: [validate, plan, apply]
+
+.env:
+  parallel:
+    matrix:
+      - ENV: [dev, stage, prod]
+  before_script:
+    - cd environments/$ENV
+    - terraform init -backend-config="bucket=$TF_STATE_BUCKET"
+  cache:
+    key: "tf-$ENV"
+    paths: [environments/$ENV/.terraform]
+
+fmt:
+  stage: validate
+  script: terraform fmt -check -recursive
+
+validate:
+  extends: .env
+  stage: validate
+  script: terraform validate
+
+plan:
+  extends: .env
+  stage: plan
+  script:
+    - terraform plan -out=plan.out
+    - terraform show -no-color plan.out > plan.txt
+  artifacts:
+    paths: [environments/$ENV/plan.out, environments/$ENV/plan.txt]
+    expire_in: 1 week
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+apply:
+  extends: .env
+  stage: apply
+  script: terraform apply plan.out
+  needs: [plan]
+  dependencies: [plan]
+  when: manual
+  environment:
+    name: $ENV
+  resource_group: "tf-$ENV"   # one apply per environment at a time
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

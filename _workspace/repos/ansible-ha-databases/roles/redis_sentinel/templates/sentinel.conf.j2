@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+port {{ redis_sentinel_port }}
+sentinel monitor main {{ redis_master_ip }} {{ redis_sentinel_redis_port }} {{ redis_sentinel_quorum }}
+sentinel auth-pass main {{ redis_password }}
+sentinel down-after-milliseconds main {{ redis_sentinel_down_after_ms }}
+sentinel failover-timeout main {{ redis_sentinel_failover_timeout_ms }}
+sentinel parallel-syncs main 1

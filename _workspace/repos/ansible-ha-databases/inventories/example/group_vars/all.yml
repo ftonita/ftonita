@@ -1,0 +1,9 @@
+# Secrets must come from Ansible Vault or HashiCorp Vault lookup - never commit real values.
+patroni_cluster_name: pg-main
+patroni_superuser_password: "{{ vault_patroni_superuser_password }}"
+patroni_replication_password: "{{ vault_patroni_replication_password }}"
+pg_version: 16
+pg_vip: 10.0.0.10
+vip_interface: eth0
+redis_master_ip: 10.0.0.21
+redis_password: "{{ vault_redis_password }}"

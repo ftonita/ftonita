@@ -1,0 +1,37 @@
+# Static analysis and supply-chain checks. SONAR_* are provided as CI/CD variables.
+.sonarqube:
+  stage: test
+  image:
+    name: sonarsource/sonar-scanner-cli:11
+    entrypoint: [""]
+  variables:
+    SONAR_USER_HOME: "$CI_PROJECT_DIR/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: sonar
+    paths: [.sonar/cache]
+  script:
+    - sonar-scanner -Dsonar.projectKey="$CI_PROJECT_PATH_SLUG" -Dsonar.host.url="$SONAR_HOST_URL" -Dsonar.qualitygate.wait=true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+.trivy-image-scan:
+  stage: test
+  image:
+    name: aquasec/trivy:0.56.2
+    entrypoint: [""]
+  variables:
+    IMAGE_TAG: "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    TRIVY_USERNAME: "$CI_REGISTRY_USER"
+    TRIVY_PASSWORD: "$CI_REGISTRY_PASSWORD"
+  script:
+    - trivy image --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed "$IMAGE_TAG"
+
+.secret-scan:
+  stage: test
+  image:
+    name: zricethezav/gitleaks:v8.21.2
+    entrypoint: [""]
+  script:
+    - gitleaks detect --source . --verbose --redact

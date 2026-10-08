@@ -1,0 +1,15 @@
+---
+- name: PostgreSQL HA (etcd + Patroni + Keepalived VIP)
+  hosts: postgres
+  become: true
+  serial: 1            # roll one node at a time - never take the whole cluster down
+  roles:
+    - etcd
+    - patroni
+    - keepalived
+
+- name: Redis HA (replication + Sentinel)
+  hosts: redis
+  become: true
+  roles:
+    - redis_sentinel

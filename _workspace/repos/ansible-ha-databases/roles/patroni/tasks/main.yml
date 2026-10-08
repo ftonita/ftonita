@@ -1,0 +1,42 @@
+---
+- name: Install PostgreSQL and Patroni
+  ansible.builtin.apt:
+    name:
+      - "postgresql-{{ pg_version }}"
+      - patroni
+      - python3-etcd
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Stop the default PostgreSQL service (Patroni manages the instance)
+  ansible.builtin.service:
+    name: postgresql
+    state: stopped
+    enabled: false
+
+- name: Render Patroni configuration
+  ansible.builtin.template:
+    src: patroni.yml.j2
+    dest: /etc/patroni/config.yml
+    mode: "0640"
+    owner: postgres
+    group: postgres
+  notify: Restart patroni
+  no_log: true   # file contains passwords
+
+- name: Enable and start Patroni
+  ansible.builtin.service:
+    name: patroni
+    state: started
+    enabled: true
+
+- name: Wait until this node reports a role to the REST API
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:8008/health"
+    status_code: [200, 503]
+  register: patroni_health
+  retries: 12
+  delay: 5
+  until: patroni_health.status is defined and patroni_health.status in [200, 503]
+  changed_when: false

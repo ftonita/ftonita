@@ -1,0 +1,7 @@
+---
+patroni_pg_data_dir: "/var/lib/postgresql/{{ pg_version }}/main"
+patroni_pg_bin_dir: "/usr/lib/postgresql/{{ pg_version }}/bin"
+patroni_ttl: 30
+patroni_loop_wait: 10
+patroni_retry_timeout: 10
+patroni_max_lag_on_failover: 1048576   # bytes: do not promote a replica that is too far behind

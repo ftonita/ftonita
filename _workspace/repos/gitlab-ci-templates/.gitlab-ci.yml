@@ -1,0 +1,8 @@
+# Template-library pipeline: lint the templates themselves.
+include:
+  - local: templates/test.yml
+
+stages: [test]
+
+lint-templates:
+  extends: .lint-yaml
