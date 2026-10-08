@@ -25,13 +25,13 @@ teams = {
 
 ## Prove it works (local, ~1 minute)
 
-Expected result of `make test`:
-
 ```bash
 make up        # Vault in dev mode (docker compose)
 make apply     # terraform apply of policies/roles
 make test      # asserts isolation end to end
 ```
+
+Expected output of `make test`:
 
 ```
 own team/env      : 200   (expect 200)
