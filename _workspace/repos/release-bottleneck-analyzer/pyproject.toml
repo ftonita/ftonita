@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "release-bottleneck-analyzer"
+dynamic = ["version"]
+description = "Find where change lead time is really spent (review, merge, release queue), compute DORA metrics and estimate what fixing a stage would save."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov", "ruff"]
+
+[project.scripts]
+release-analyzer = "release_analyzer.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "release_analyzer.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

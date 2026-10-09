@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 190" role="img" aria-label="Share of lead time by stage" font-family="sans-serif" font-size="13">
+<rect width="100%" height="100%" fill="white"/>
+<text x="20" y="26" font-size="15" font-weight="bold">Share of lead time by stage (median lead time 73.1 h)</text>
+<rect x="20.0" y="56" width="99.0" height="38" fill="#3b6ea5"/>
+<text x="69.5" y="80" fill="white" text-anchor="middle" font-weight="bold">14%</text>
+<rect x="119.0" y="56" width="59.2" height="38" fill="#6a9fd1"/>
+<text x="148.6" y="80" fill="white" text-anchor="middle" font-weight="bold">8%</text>
+<rect x="178.2" y="56" width="24.6" height="38" fill="#d9a441"/>
+<rect x="202.8" y="56" width="537.2" height="38" fill="#c0504d"/>
+<text x="471.4" y="80" fill="white" text-anchor="middle" font-weight="bold">75%</text>
+<rect x="20" y="109" width="14" height="14" fill="#3b6ea5"/>
+<text x="42" y="120">Waiting for first review: 13.0 h mean</text>
+<rect x="390" y="109" width="14" height="14" fill="#6a9fd1"/>
+<text x="412" y="120">Review until approval: 7.8 h mean</text>
+<rect x="20" y="133" width="14" height="14" fill="#d9a441"/>
+<text x="42" y="144">Approval until merge (incl. CI): 3.2 h mean</text>
+<rect x="390" y="133" width="14" height="14" fill="#c0504d"/>
+<text x="412" y="144">Merged until in production: 70.8 h mean (bottleneck)</text>
+</svg>

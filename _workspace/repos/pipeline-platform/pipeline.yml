@@ -1,0 +1,29 @@
+# Entrypoint included by consumer repositories.
+#   1. `platform:generate` validates .platform.yml and writes child-pipeline.yml for THIS ref.
+#   2. `platform:run` executes it as a dynamic child pipeline.
+# Jobs are decided at generation time, so the child pipeline contains only what applies.
+
+variables:
+  PLATFORM_IMAGE: registry.example.com/platform/pipeline-platform:v1   # override via CI/CD variable
+
+stages: [platform]
+
+platform:generate:
+  stage: platform
+  image: $PLATFORM_IMAGE
+  script:
+    - pipeline-platform validate --config .platform.yml
+    - pipeline-platform generate --config .platform.yml --out child-pipeline.yml
+    - cat child-pipeline.yml
+  artifacts:
+    paths: [child-pipeline.yml]
+    expire_in: 1 week
+
+platform:run:
+  stage: platform
+  needs: [platform:generate]
+  trigger:
+    include:
+      - artifact: child-pipeline.yml
+        job: platform:generate
+    strategy: depend

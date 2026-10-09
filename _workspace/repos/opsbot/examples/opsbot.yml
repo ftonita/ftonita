@@ -1,0 +1,12 @@
+# Synthetic example. User ids are fictional; the bot token is read from TELEGRAM_BOT_TOKEN.
+users:
+  - { id: 1001, name: alice, role: operator }
+  - { id: 1002, name: bob,   role: approver }
+  - { id: 1003, name: carol, role: viewer }
+  - { id: 1004, name: dave,  role: admin }
+services: [orders-api, billing-worker]
+environments: [dev, stage, prod]
+prod_environments: [prod]
+rate_limit: { burst: 5, per_minute: 20 }
+confirm_ttl_seconds: 120
+max_silence_hours: 8

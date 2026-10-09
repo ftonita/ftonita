@@ -1,0 +1,13 @@
+# image.tag is updated by CI (pipeline-platform bump-tag). Do not edit by hand.
+replicaCount: 1
+
+image:
+  repository: nexus.example.com:8082/shop/orders-api
+  tag: "0000000"  # bumped by CI
+
+env:
+  APP_ENV: dev
+
+resources:
+  requests: { cpu: 100m, memory: 128Mi }
+  limits: { memory: 128Mi }

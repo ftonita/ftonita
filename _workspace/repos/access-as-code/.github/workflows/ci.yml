@@ -1,0 +1,25 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "${{ matrix.python }}" }
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: pytest --cov=access_as_code --cov-report=term-missing
+  access-review:
+    # Dogfooding: the example declaration must lint clean (no errors) on the pinned review date.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13" }
+      - run: pip install -e .
+      - run: access-as-code lint examples/access.yml --today 2026-10-08
+      - run: access-as-code compile examples/access.yml --today 2026-10-08 --out build

@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ftonita/pipeline-platform/v1/src/pipeline_platform/schemas/platform.v1.schema.json
+# Synthetic example. All hosts, paths and names are fictional.
+version: 1
+app:
+  name: orders-api
+vault:
+  url: https://vault.example.com
+  role: ci-orders-api
+registry:
+  type: nexus
+  host: nexus.example.com:8082
+  namespace: shop
+  credentials: { mount: ci, path: nexus/docker }
+test:
+  image: python:3.12-slim
+  script:
+    - pip install -r requirements.txt
+    - pytest --junitxml=report.xml
+  junit: report.xml
+quality:
+  sonarqube:
+    host_url: https://sonar.example.com
+    token: { mount: ci, path: sonarqube, field: token }
+deploy:
+  environments:
+    - name: dev
+      method: argocd
+      refs: { branches: [main] }
+      argocd: &argocd
+        gitops_repo: https://git.example.com/platform/gitops.git
+        credentials: { mount: ci, path: gitops, field: token }
+    - name: stage
+      method: argocd
+      approval: manual
+      refs: { branches: [main] }
+      argocd: *argocd
+    - name: prod
+      method: argocd
+      approval: manual
+      refs: { tags: '^v[0-9]+\.[0-9]+\.[0-9]+$' }
+      argocd:
+        <<: *argocd
+        sync:
+          server: argocd.example.com
+          token: { mount: ci, path: argocd, field: token }

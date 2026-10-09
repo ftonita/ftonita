@@ -36,14 +36,15 @@ I build the platform product teams ship on: **reviewed, repeatable infrastructur
 
 ## 🚀 Featured projects
 
-Sanitised, runnable reference implementations of patterns I use in production (no employer code).
+Reference implementations of patterns from my DevOps work, rebuilt from scratch on **synthetic data** (no employer code or data). Every README states exactly what was and was not verified.
 
 | Project | What it shows |
 |---|---|
-| [**terraform-hybrid-iac**](https://github.com/ftonita/terraform-hybrid-iac) | Multi-environment Terraform for OpenStack-compatible clouds, merge-request pipeline with plan and manual apply. |
-| [**gitlab-ci-templates**](https://github.com/ftonita/gitlab-ci-templates) | Reusable GitLab CI library: Kaniko build, SonarQube, Trivy, Gitleaks, Ansible/GitOps deploy. |
-| [**vault-rbac-onboarding**](https://github.com/ftonita/vault-rbac-onboarding) | Vault policy-as-code: per-team isolation proven by an automated end-to-end test. |
-| [**ansible-ha-databases**](https://github.com/ftonita/ansible-ha-databases) | PostgreSQL (etcd + Patroni + Keepalived VIP) and Redis Sentinel failover clusters. |
+| [**pipeline-platform**](https://github.com/ftonita/pipeline-platform) | One `.platform.yml` per repo → a generated GitLab child pipeline with jobs chosen by context. Vault via `id_tokens`, image tagged with the commit SHA in Nexus (Artifactory optional), deploy by Ansible, Helm or ArgoCD, JSON Schema + Python validation, `v1` versioning and CHANGELOG. |
+| [**vault-migration-toolkit**](https://github.com/ftonita/vault-migration-toolkit) | Legacy secrets → Vault KV v2: inventory (weak, reused, stale), deterministic mapping, idempotent check-and-set apply, verification. Never prints a secret value. |
+| [**access-as-code**](https://github.com/ftonita/access-as-code) | A least-privilege access model as reviewed YAML: 11 lint rules, compiled to Vault policies, Kubernetes RBAC and GitLab members, with drift detection. |
+| [**release-bottleneck-analyzer**](https://github.com/ftonita/release-bottleneck-analyzer) | Shows where lead time is really spent (review vs. merge vs. release queue), DORA-style metrics and a what-if estimate. |
+| [**opsbot**](https://github.com/ftonita/opsbot) | A ChatOps Telegram bot with roles, rate limiting, an audit trail and a two-person rule for production changes. |
 
 <details>
 <summary><b>More: Python, web &amp; systems programming</b></summary>

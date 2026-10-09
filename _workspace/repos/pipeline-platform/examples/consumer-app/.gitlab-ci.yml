@@ -1,0 +1,5 @@
+# The entire per-repo pipeline definition. Everything else lives in .platform.yml.
+include:
+  - project: platform/pipeline-platform
+    ref: v1                 # moving major tag; pin v1.x.y for fully reproducible pipelines
+    file: pipeline.yml

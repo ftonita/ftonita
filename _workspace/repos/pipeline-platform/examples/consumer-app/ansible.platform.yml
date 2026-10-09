@@ -1,0 +1,27 @@
+# Synthetic example: VM deployment with Ansible, production only on a version tag.
+version: 1
+app:
+  name: legacy-gateway
+vault:
+  url: https://vault.example.com
+  role: ci-legacy-gateway
+  audience: https://vault.example.com
+registry:
+  host: nexus.example.com:8082
+  namespace: infra
+  credentials: { mount: ci, path: nexus/docker }
+quality:
+  trivy: false
+deploy:
+  environments:
+    - name: prod
+      method: ansible
+      approval: manual
+      refs: { tags: '^v[0-9]+' }
+      secrets:
+        DB_PASSWORD: { mount: apps, path: legacy-gateway/prod, field: db_password }
+      ansible:
+        playbook: deploy/site.yml
+        inventory: deploy/inventories/prod
+        ssh_key: { mount: ci, path: ssh/deploy, field: private_key }
+        extra_vars: { service_name: legacy-gateway }

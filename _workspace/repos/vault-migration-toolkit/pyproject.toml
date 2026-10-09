@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vault-migration-toolkit"
+dynamic = ["version"]
+description = "Inventory, plan, migrate and verify secrets from legacy storage into HashiCorp Vault KV v2 without ever printing a value."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["PyYAML>=6"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov", "ruff"]
+
+[project.scripts]
+vault-migrate = "vault_migration.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "vault_migration.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

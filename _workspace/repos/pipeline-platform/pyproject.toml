@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pipeline-platform"
+dynamic = ["version"]
+description = "One .platform.yml -> a generated GitLab child pipeline (Vault id_tokens, Nexus/Artifactory, Ansible/Helm/ArgoCD)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["jsonschema>=4.18", "PyYAML>=6"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov", "ruff"]
+
+[project.scripts]
+pipeline-platform = "pipeline_platform.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "pipeline_platform.__version__" }
+
+[tool.setuptools.package-data]
+pipeline_platform = ["schemas/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

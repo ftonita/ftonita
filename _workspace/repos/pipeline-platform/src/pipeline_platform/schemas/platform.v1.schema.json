@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ftonita/pipeline-platform/schema/platform.v1.schema.json",
+  "title": "pipeline-platform .platform.yml (v1)",
+  "description": "Single per-repository config that drives the generated GitLab child pipeline.",
+  "type": "object",
+  "required": ["version", "app", "vault", "registry"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1, "description": "Config major version. Matches the platform tag (v1)." },
+    "app": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$", "maxLength": 53 }
+      }
+    },
+    "vault": {
+      "description": "Vault is reached with GitLab id_tokens (JWT auth). No static Vault token ever exists in CI.",
+      "type": "object",
+      "required": ["url", "role"],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "role": { "type": "string", "minLength": 1 },
+        "auth_path": { "type": "string", "default": "jwt" },
+        "audience": { "type": "string", "description": "id_token aud claim. Defaults to vault.url." }
+      }
+    },
+    "registry": {
+      "type": "object",
+      "required": ["host", "namespace", "credentials"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "enum": ["nexus", "artifactory"], "default": "nexus" },
+        "host": { "type": "string", "pattern": "^[a-z0-9.-]+(:[0-9]{2,5})?$" },
+        "namespace": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._/-]*$" },
+        "repository": { "type": "string", "description": "Artifactory repository key (required for type=artifactory)." },
+        "layout": { "enum": ["path", "subdomain"], "default": "path", "description": "Artifactory docker access method." },
+        "credentials": {
+          "type": "object",
+          "required": ["mount", "path"],
+          "additionalProperties": false,
+          "properties": {
+            "mount": { "type": "string" },
+            "path": { "type": "string" },
+            "user_field": { "type": "string", "default": "username" },
+            "password_field": { "type": "string", "default": "password" }
+          }
+        }
+      },
+      "if": { "properties": { "type": { "const": "artifactory" } }, "required": ["type"] },
+      "then": { "required": ["repository"] }
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "dockerfile": { "type": "string", "default": "Dockerfile" },
+        "context": { "type": "string", "default": "." },
+        "args": { "type": "object", "additionalProperties": { "type": "string" } }
+      }
+    },
+    "test": {
+      "type": "object",
+      "required": ["image", "script"],
+      "additionalProperties": false,
+      "properties": {
+        "image": { "type": "string" },
+        "script": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "junit": { "type": "string", "description": "Path of a JUnit XML report to publish." }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gitleaks": { "type": "boolean", "default": true },
+        "trivy": { "type": "boolean", "default": true },
+        "sonarqube": {
+          "type": "object",
+          "required": ["host_url", "token"],
+          "additionalProperties": false,
+          "properties": {
+            "host_url": { "type": "string", "pattern": "^https://" },
+            "token": { "$ref": "#/$defs/vault_secret" }
+          }
+        }
+      }
+    },
+    "deploy": {
+      "type": "object",
+      "required": ["environments"],
+      "additionalProperties": false,
+      "properties": {
+        "environments": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/environment" }
+        }
+      }
+    },
+    "images": {
+      "description": "Override tool images (internal mirrors / air-gapped runners).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kaniko": { "type": "string" },
+        "trivy": { "type": "string" },
+        "gitleaks": { "type": "string" },
+        "sonar": { "type": "string" },
+        "ansible": { "type": "string" },
+        "helm": { "type": "string" },
+        "platform": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "vault_secret": {
+      "type": "object",
+      "required": ["mount", "path", "field"],
+      "additionalProperties": false,
+      "properties": {
+        "mount": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "field": { "type": "string", "minLength": 1 }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "required": ["name", "method", "refs"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" },
+        "method": { "enum": ["ansible", "helm", "argocd"] },
+        "approval": { "enum": ["auto", "manual"], "default": "auto" },
+        "refs": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "branches": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "Branch names or fnmatch globs." },
+            "tags": { "type": "string", "description": "Regular expression a tag name must match." }
+          }
+        },
+        "secrets": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[A-Z_][A-Z0-9_]*$" },
+          "additionalProperties": { "$ref": "#/$defs/vault_secret" }
+        },
+        "ansible": {
+          "type": "object",
+          "required": ["playbook", "inventory", "ssh_key"],
+          "additionalProperties": false,
+          "properties": {
+            "playbook": { "type": "string" },
+            "inventory": { "type": "string" },
+            "ssh_key": { "$ref": "#/$defs/vault_secret" },
+            "extra_vars": { "type": "object", "additionalProperties": { "type": "string" } }
+          }
+        },
+        "helm": {
+          "type": "object",
+          "required": ["chart", "namespace", "kubeconfig"],
+          "additionalProperties": false,
+          "properties": {
+            "chart": { "type": "string" },
+            "release": { "type": "string", "description": "Defaults to {app}-{env}." },
+            "namespace": { "type": "string" },
+            "kubeconfig": { "$ref": "#/$defs/vault_secret" },
+            "values": { "type": "array", "items": { "type": "string" } },
+            "set": { "type": "object", "additionalProperties": { "type": "string" } },
+            "timeout": { "type": "string", "pattern": "^[0-9]+[smh]$", "default": "5m" }
+          }
+        },
+        "argocd": {
+          "type": "object",
+          "required": ["gitops_repo", "credentials"],
+          "additionalProperties": false,
+          "properties": {
+            "gitops_repo": { "type": "string", "pattern": "^https://" },
+            "branch": { "type": "string", "default": "main" },
+            "values_file": { "type": "string", "description": "Defaults to apps/{app}/{env}/values.yaml." },
+            "credentials": { "$ref": "#/$defs/vault_secret" },
+            "sync": {
+              "type": "object",
+              "required": ["server", "token"],
+              "additionalProperties": false,
+              "properties": {
+                "server": { "type": "string" },
+                "application": { "type": "string", "description": "Defaults to {app}-{env}." },
+                "token": { "$ref": "#/$defs/vault_secret" }
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "method": { "const": "ansible" } }, "required": ["method"] },
+          "then": { "required": ["ansible"], "properties": { "helm": false, "argocd": false } }
+        },
+        {
+          "if": { "properties": { "method": { "const": "helm" } }, "required": ["method"] },
+          "then": { "required": ["helm"], "properties": { "ansible": false, "argocd": false } }
+        },
+        {
+          "if": { "properties": { "method": { "const": "argocd" } }, "required": ["method"] },
+          "then": { "required": ["argocd"], "properties": { "ansible": false, "helm": false } }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+# Synthetic file with planted problems, used by the tests and the README walkthrough.
+version: 1
+teams: [payments, scoring]
+environments: [dev, stage, prod]
+production_environments: [prod]
+
+roles:
+  viewer:      { vault: [read, list], kubernetes: view, gitlab: reporter }
+  developer:   { vault: [read, list], kubernetes: edit, gitlab: developer }
+  deployer:    { vault: [read, list, create, update], kubernetes: edit, gitlab: maintainer }
+  approver:    { gitlab: maintainer }
+  break-glass: { vault: [read, list, create, update, delete], kubernetes: admin, gitlab: maintainer }
+  super-ops:   { vault: [read, sudo] }
+  unused-role: { vault: [read] }
+
+people:
+  alice: { team: payments, status: active }
+  bob:   { team: payments, status: active }
+  gone:  { team: payments, status: offboarded }
+  dave:  { team: scoring,  status: active }
+
+groups:
+  payments-devs: [alice, gone]
+  orphan-group: [dave]
+
+grants:
+  - { subject: "group:payments-devs", role: developer, team: payments, env: dev }
+  - { subject: alice, role: deployer, team: payments, env: prod, ticket: SEC-1, expires: 2026-12-01 }
+  - { subject: alice, role: approver, team: payments, env: prod, ticket: SEC-2, expires: 2026-12-01 }
+  - { subject: bob, role: deployer, team: payments, env: prod }
+  - { subject: bob, role: viewer, team: payments, env: prod, ticket: SEC-3, expires: 2027-06-01 }
+  - { subject: dave, role: break-glass, team: payments, env: prod, ticket: SEC-4, expires: 2026-12-31 }
+  - { subject: dave, role: viewer, team: payments, env: dev }
+  - { subject: bob, role: developer, team: payments, env: stage, expires: 2026-09-01 }
+  - { subject: bob, role: developer, team: payments, env: stage, expires: 2026-10-15 }
+  - { subject: bob, role: developer, team: payments, env: stage, expires: 2026-10-15 }
+  - { subject: nobody, role: viewer, team: payments, env: dev }
+  - { subject: bob, role: ghost-role, team: payments, env: dev }
+  - { subject: bob, role: viewer, team: payments, env: qa }

@@ -1,0 +1,38 @@
+# One Application per apps/<app>/<env> directory. Adding an app = adding a directory.
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: shop
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://git.example.com/platform/gitops.git
+        revision: main
+        directories:
+          - path: apps/*/*
+  template:
+    metadata:
+      name: '{{path[1]}}-{{path.basename}}'
+    spec:
+      project: shop
+      sources:
+        - repoURL: https://git.example.com/platform/gitops.git
+          targetRevision: main
+          path: charts/app
+          helm:
+            releaseName: '{{path[1]}}-{{path.basename}}'
+            valueFiles:
+              - $values/{{path}}/values.yaml
+        - repoURL: https://git.example.com/platform/gitops.git
+          targetRevision: main
+          ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'shop-{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

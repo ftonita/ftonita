@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opsbot"
+dynamic = ["version"]
+description = "A ChatOps Telegram bot for on-call work: status, alerts, silences and two-person-approved deployments, with roles, rate limiting and an audit log."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["PyYAML>=6", "aiogram>=3.4,<4"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov", "pytest-asyncio", "ruff"]
+
+[project.scripts]
+opsbot = "opsbot.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "opsbot.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 120
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

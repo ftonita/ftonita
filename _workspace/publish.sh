@@ -1,25 +1,29 @@
 #!/usr/bin/env bash
-# Run LOCALLY (needs `gh auth login`). Publishes each reference repo as its own public GitHub repository.
+# Publishes the five reference repos as separate public GitHub repositories.
+# Needs `gh auth login` (run locally). Safe to re-run: existing repos are skipped.
 set -euo pipefail
 cd "$(dirname "$0")/repos"
 declare -A DESC=(
-  [terraform-hybrid-iac]="Multi-environment Terraform for OpenStack-compatible clouds with a merge-request GitLab pipeline"
-  [gitlab-ci-templates]="Reusable GitLab CI templates: Kaniko build, SonarQube, Trivy, Gitleaks, Ansible/GitOps deploy"
-  [vault-rbac-onboarding]="HashiCorp Vault team onboarding as policy-as-code with an end-to-end isolation test"
-  [ansible-ha-databases]="Ansible roles for PostgreSQL (Patroni + Keepalived) and Redis Sentinel failover clusters"
+  [pipeline-platform]="One .platform.yml -> generated GitLab child pipeline: Vault id_tokens, Nexus/Artifactory, Ansible/Helm/ArgoCD"
+  [vault-migration-toolkit]="Inventory, plan, migrate and verify secrets into Vault KV v2 without ever printing a value"
+  [access-as-code]="Least-privilege access as reviewed YAML: lint, compile to Vault/Kubernetes/GitLab, detect drift"
+  [release-bottleneck-analyzer]="Find where change lead time is spent (review, merge, release queue) and estimate what fixing it saves"
+  [opsbot]="ChatOps Telegram bot with roles, rate limiting, audit log and a two-person rule for production changes"
 )
 declare -A TOPICS=(
-  [terraform-hybrid-iac]="terraform,openstack,iac,gitlab-ci,devops"
-  [gitlab-ci-templates]="gitlab-ci,ci-cd,kaniko,sonarqube,trivy,devops"
-  [vault-rbac-onboarding]="vault,hashicorp-vault,terraform,rbac,secrets-management,devops"
-  [ansible-ha-databases]="ansible,postgresql,patroni,keepalived,redis-sentinel,high-availability,devops"
+  [pipeline-platform]="gitlab-ci,devops,hashicorp-vault,helm,argocd,ansible,nexus,json-schema,ci-cd"
+  [vault-migration-toolkit]="hashicorp-vault,secrets-management,migration,devops,python"
+  [access-as-code]="rbac,least-privilege,hashicorp-vault,kubernetes,gitlab,policy-as-code,devops"
+  [release-bottleneck-analyzer]="dora-metrics,lead-time,devops,engineering-metrics,python"
+  [opsbot]="chatops,telegram-bot,aiogram,alertmanager,devops,python"
 )
 for r in "${!DESC[@]}"; do
+  if gh repo view "ftonita/$r" >/dev/null 2>&1; then echo "skip $r (exists)"; continue; fi
   ( cd "$r"
     git init -q -b main
     git add -A && git commit -qm "Initial commit"
     gh repo create "ftonita/$r" --public --description "${DESC[$r]}" --source . --push
     gh repo edit "ftonita/$r" --add-topic "${TOPICS[$r]}"
-  )
+    rm -rf .git )
 done
-echo "Done. Now pin these 4 repos on your profile (Customize your pins)."
+echo "Done. Pin the five repos: github.com/ftonita -> Customize your pins."

@@ -1,0 +1,14 @@
+services:
+  opsbot:
+    build: .
+    restart: unless-stopped
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:?set it in your shell or an untracked .env file}
+    volumes:
+      - ./examples/opsbot.yml:/config/opsbot.yml:ro
+      - opsbot-data:/data
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+volumes:
+  opsbot-data:

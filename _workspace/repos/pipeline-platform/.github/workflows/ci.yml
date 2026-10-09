@@ -1,0 +1,37 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "${{ matrix.python }}" }
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - name: Fetch GitLab's official CI JSON Schema
+        run: |
+          curl -fsSL -o gitlab-ci.schema.json \
+            https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json
+          echo "GITLAB_CI_SCHEMA=$PWD/gitlab-ci.schema.json" >> "$GITHUB_ENV"
+      - run: pytest --cov=pipeline_platform --cov-report=term-missing
+  gitops-example:
+    # Helm/ArgoCD example: lint and render the chart for every environment, validate manifests.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+      - name: Install kubeconform
+        run: |
+          curl -fsSL https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz | tar xz
+          sudo mv kubeconform /usr/local/bin/
+      - run: helm lint examples/gitops-repo/charts/app -f examples/gitops-repo/apps/orders-api/prod/values.yaml
+      - name: Render and validate every environment
+        run: |
+          for env in dev stage prod; do
+            helm template orders-api-$env examples/gitops-repo/charts/app \
+              -f examples/gitops-repo/apps/orders-api/$env/values.yaml | kubeconform -strict -summary
+          done

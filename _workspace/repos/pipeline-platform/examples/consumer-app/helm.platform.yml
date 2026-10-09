@@ -1,0 +1,26 @@
+# Synthetic example: Helm straight to the cluster, Artifactory as the registry.
+version: 1
+app:
+  name: billing-worker
+vault:
+  url: https://vault.example.com
+  role: ci-billing-worker
+registry:
+  type: artifactory
+  host: artifactory.example.com
+  repository: docker-local
+  namespace: finance
+  credentials: { mount: ci, path: artifactory, user_field: user, password_field: token }
+build:
+  args: { APP_ENV: production }
+deploy:
+  environments:
+    - name: stage
+      method: helm
+      refs: { branches: [main, 'release/*'] }
+      helm:
+        chart: ./deploy/chart
+        namespace: billing-stage
+        kubeconfig: { mount: ci, path: k8s/stage, field: kubeconfig }
+        values: [deploy/values-stage.yaml]
+        set: { replicaCount: '2' }

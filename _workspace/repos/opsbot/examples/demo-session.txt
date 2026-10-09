@@ -1,0 +1,15 @@
+# Replayed against the synthetic backend. '+N' advances the fake clock by N seconds.
+carol: /status
+carol: /silence HighErrorRate 1h flaky
+alice: /alerts
+alice: /silence HighErrorRate 1h deploying fix, tracked in INC-42
+alice: /deploy orders-api stage 7c1d9e22
+alice: /confirm AAAAAA
++30
+alice: /deploy orders-api prod 7c1d9e22
+alice: /confirm BBBBBB
+bob: /confirm BBBBBB
++10
+alice: /deploys orders-api
+dave: /audit 10
+999: /status

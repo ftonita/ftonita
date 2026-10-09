@@ -1,0 +1,38 @@
+# Synthetic example. All people, teams and tickets are fictional.
+version: 1
+teams: [payments, scoring]
+environments: [dev, stage, prod]
+production_environments: [prod]
+
+roles:
+  viewer:      { description: read-only,                        vault: [read, list], kubernetes: view,  gitlab: reporter }
+  developer:   { description: day-to-day development,           vault: [read, list], kubernetes: edit,  gitlab: developer }
+  deployer:    { description: ships releases,                   vault: [read, list, create, update], kubernetes: edit, gitlab: maintainer }
+  approver:    { description: approves production releases,     gitlab: maintainer }
+  break-glass: { description: "emergency access, short-lived",    vault: [read, list, create, update, delete], kubernetes: admin, gitlab: maintainer }
+
+people:
+  alice: { team: payments, status: active }
+  bob:   { team: payments, status: active }
+  carol: { team: payments, status: active }
+  dave:  { team: scoring,  status: active }
+  erin:  { team: scoring,  status: active }
+  frank: { team: scoring,  status: active }
+
+groups:
+  payments-devs: [alice, bob]
+  scoring-devs:  [dave, erin]
+  release-managers: [carol]
+
+grants:
+  - { subject: "group:payments-devs", role: developer, team: payments, env: dev }
+  - { subject: "group:payments-devs", role: developer, team: payments, env: stage }
+  - { subject: "group:payments-devs", role: viewer,    team: payments, env: prod,  ticket: SEC-101 }
+  - { subject: "group:scoring-devs",  role: developer, team: scoring,  env: dev }
+  - { subject: "group:scoring-devs",  role: developer, team: scoring,  env: stage }
+  - { subject: "group:scoring-devs",  role: viewer,    team: scoring,  env: prod,  ticket: SEC-102 }
+  - { subject: alice, role: deployer, team: payments, env: prod, ticket: SEC-110, expires: 2026-12-15 }
+  - { subject: carol, role: approver, team: payments, env: prod, ticket: SEC-111, expires: 2026-12-15 }
+  - { subject: dave,  role: deployer, team: scoring,  env: prod, ticket: SEC-112, expires: 2026-12-01 }
+  - { subject: frank, role: approver, team: scoring,  env: prod, ticket: SEC-113, expires: 2026-12-01 }
+  - { subject: bob, role: break-glass, team: payments, env: prod, ticket: SEC-120, expires: 2026-10-12, reason: "incident INC-77" }
