@@ -4,7 +4,7 @@
 
 <p align="center">
   <b><i>Reviewed infrastructure. Boring pipelines. Secrets nobody pastes in chat.</i></b><br>
-  <sub>Kazan · UTC+3 · fully remote</sub>
+  <sub>UTC+3 · fully remote</sub>
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
 </p>
 
 > [!NOTE]
-> **Open to remote DevOps / Platform / SRE roles with international teams.** Message me on Telegram or by email.
+> **Message me on Telegram or by email.**
 
 ## About
 
@@ -103,7 +103,7 @@ A ChatOps Telegram bot for on-call: roles, rate limits, an audit trail and a two
 
 ## Education and achievements
 
-- **School 21** (Ecole 42 curriculum), Kazan: Software Engineering, alumnus 2024; volunteer mentor for new participants.
+- **School 21** (Ecole 42 curriculum): Software Engineering, alumnus 2024; volunteer mentor for new participants.
 - **Languages:** Russian (native), English B2 with working proficiency in technical communication.
 - Hackathons: 🥇 Stackers New Year web hackathon (DevOps, backend) · 🥈 School 21 Data Science (team lead) · 🥉 Roseltorg.
 
