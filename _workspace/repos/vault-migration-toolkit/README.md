@@ -95,4 +95,6 @@ Reproduce with `pip install -e ".[dev]" && pytest` (68 tests, 98% line coverage)
 - The HTTP client is tested over real HTTP against `tests/stub_vault.py`, a **stub that implements only the KV v2 subset used here** (data, metadata, mounts, CAS, 5xx, 403). It is not Vault, so semantics such as mount permissions and real CAS error text are assumptions from the API documentation.
 - End-to-end CLI flow on the synthetic dataset, including tampering and recovery (the output above).
 
-**Not verified by the author:** a run against a real Vault server (the CI job `real-vault` does exactly that with a Vault dev server and has not been run yet), Vault Enterprise namespaces, very large exports (the export is held in memory), and non-KV legacy sources. Writing custom metadata is a second request, so it is not atomic with the value.
+- The CI job `real-vault` runs the whole flow (`apply --execute --create-mounts`, an idempotent re-run, `verify`) against a **real Vault 1.17 dev server**; it passed on the first run (2026-10-09).
+
+**Not verified:** Vault Enterprise namespaces, production-style Vault (Raft, policies, auth methods), very large exports (the export is held in memory), and non-KV legacy sources. Writing custom metadata is a second request, so it is not atomic with the value.

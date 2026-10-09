@@ -117,7 +117,9 @@ Verified in the author's sandbox (reproduce with `pip install -e ".[dev]" && pyt
 - Execution on a real GitLab runner, including the dynamic child pipeline hand-off.
 - Real Vault JWT login, Nexus/Artifactory pushes, Kaniko builds, Trivy/Sonar runs.
 - `docker build` of the [Dockerfile](Dockerfile) (the ArgoCD CLI download is unexercised).
-- `helm lint` / `helm template` / ArgoCD on `examples/gitops-repo`. These run in this repo's GitHub Actions workflow (`gitops-example` job) on every push.
+- ArgoCD syncing `examples/gitops-repo` (the ApplicationSet was never applied to a live ArgoCD).
+
+Also verified in GitHub Actions (first run, 2026-10-09): the test suite on Python 3.10 and 3.12, and the `gitops-example` job, which runs `helm lint`, `helm template` for dev/stage/prod and `kubeconform -strict` on the example chart.
 
 Expect to adjust runner tags, network policy and image mirrors for your environment.
 
