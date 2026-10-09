@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 240" role="img" aria-labelledby="t d" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="t">Iskander Safin, DevOps Engineer</title>
+  <desc id="d">Banner with the name Iskander Safin, the role DevOps Engineer, Platform and Reliability, and a build, test, scan, deploy pipeline motif.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#1b3a5c"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+  </defs>
+  <rect width="840" height="240" rx="18" fill="url(#bg)"/>
+  <rect x="40" y="46" width="60" height="6" rx="3" fill="url(#accent)"/>
+  <text x="40" y="118" font-size="62" font-weight="700" fill="#ffffff">Iskander Safin</text>
+  <text x="40" y="162" font-size="30" font-weight="600" fill="#e2e8f0">DevOps Engineer</text>
+  <text x="40" y="198" font-size="23" fill="#b4c2d6">Platform &amp; Reliability</text>
+
+  <!-- pipeline motif: build -> test -> scan -> deploy -->
+  <g transform="translate(508 96)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M56 28 H78 M140 28 H162 M224 28 H246" stroke="#8197b8" stroke-width="3"/>
+    <path d="M72 20 l8 8 -8 8 M156 20 l8 8 -8 8 M240 20 l8 8 -8 8" stroke="#8197b8" stroke-width="3"/>
+    <g stroke-width="3" fill="#10243d">
+      <rect x="0" y="0" width="56" height="56" rx="12" stroke="#38bdf8"/>
+      <rect x="84" y="0" width="56" height="56" rx="12" stroke="#38bdf8"/>
+      <rect x="168" y="0" width="56" height="56" rx="12" stroke="#34d399"/>
+      <rect x="252" y="0" width="56" height="56" rx="12" stroke="#34d399"/>
+    </g>
+    <g font-size="13" font-weight="600" text-anchor="middle" fill="#e2e8f0" stroke="none">
+      <text x="28" y="33">build</text>
+      <text x="112" y="33">test</text>
+      <text x="196" y="33">scan</text>
+      <text x="280" y="33">deploy</text>
+    </g>
+  </g>
+</svg>
